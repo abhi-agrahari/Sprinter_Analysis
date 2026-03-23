@@ -22,7 +22,7 @@ EDGES = {
     (14, 16): 'c',  # right_knee → right_ankle
 }
 
-def draw_keypoints(img, keypoints, confidence_threshold):
+def draw_keypoints(frame, keypoints, confidence_threshold):
     y, x, c = frame.shape
 
     shaped = np.squeeze(np.multiply(keypoints, [y, x, 1]))
@@ -42,4 +42,4 @@ def draw_keypoints(img, keypoints, confidence_threshold):
             y2, x2, c2 = shaped[p2]
 
             if(c1 > confidence_threshold) & (c2 > confidence_threshold):
-                cv2.line(image, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
+                cv2.line(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
