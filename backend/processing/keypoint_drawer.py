@@ -27,11 +27,13 @@ def draw_keypoints(frame, keypoints, confidence_threshold):
 
     shaped = np.squeeze(np.multiply(keypoints, [y, x, 1]))
 
+    # Draw individual keypoints
     for kp in shaped:
         ky, kx, kp_conf = kp
         if kp_conf >= confidence_threshold:
             cv2.circle(frame, (int(kx), int(ky)), 4, (0, 255, 0), -1)
 
+    # Draw connections (skeletons)
     def draw_connections(frame, keypoints, edges):
         y, x, c = frame.shape
 
@@ -43,3 +45,5 @@ def draw_keypoints(frame, keypoints, confidence_threshold):
 
             if(c1 > confidence_threshold) & (c2 > confidence_threshold):
                 cv2.line(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
+
+    draw_connections(frame, keypoints, EDGES)

@@ -4,6 +4,7 @@ Flask-CORS==4.0.0
 
 # Machine Learning / Deep Learning
 tensorflow==2.20.0
+tensorflow-hub
 scikit-learn==1.6.1
 
 # Data Processing
