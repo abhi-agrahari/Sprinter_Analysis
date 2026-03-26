@@ -6,6 +6,7 @@ from processing.keypoint_drawer import draw_keypoints
 from calculations.knee_angles import calculate_knee_angles
 from calculations.elbow_flaring import calculate_elbow_flaring
 from calculations.pelvic_tilt import calculate_pelvic_tilt
+from calculations.vertical_upright import calculate_vertical_upright_angle
 from ml.inference import load_movenet, run_inference
 
 # Video path
@@ -41,12 +42,14 @@ def main():
         l_knee, r_knee = calculate_knee_angles(keypoints_with_scores)
         l_elbow_flare, r_elbow_flare = calculate_elbow_flaring(keypoints_with_scores)
         p_tilt = calculate_pelvic_tilt(keypoints_with_scores)
+        v_upright = calculate_vertical_upright_angle(keypoints_with_scores)
 
         # writing result on frame
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(frame, f"L-Knee: {int(l_knee)}'  R-Knee: {int(r_knee)}'", (10, 50), font, 1, (255, 255, 255), 2)
         cv2.putText(frame, f"Elbow Flare: {int(l_elbow_flare)}'", (10, 100), font, 1, (255, 255, 255), 2)
         cv2.putText(frame, f"Pelvic Tilt: {int(p_tilt)}'", (10, 150), font, 1, (255, 255, 255), 2)
+        cv2.putText(frame, f"Upright Angle: {int(v_upright)}'", (10, 200), font, 1, (255, 255, 255), 2)
 
         # adding frame to output video
         out.write(frame)
