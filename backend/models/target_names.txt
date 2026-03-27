@@ -1,1 +1,0 @@
-Mean_Deviation_Stride,Vertical_upright_angle,Left_elbow,right_elbow,left_knee,right_knee

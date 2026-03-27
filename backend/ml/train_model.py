@@ -20,7 +20,12 @@ def train_multivariate_model():
     df.columns = df.columns.str.strip('"')
 
     # input features
-    X = df[['Weight', 'Height', 'Gender']]
+    X = df[['Weight', 'Height', 'Gender']].copy()
+
+    # Initialize and fit scaler on Height and Weight
+    from sklearn.preprocessing import MinMaxScaler
+    scaler = MinMaxScaler()
+    X[['Weight', 'Height']] = scaler.fit_transform(X[['Weight', 'Height']])
     
     # output
     targets = [
@@ -37,8 +42,6 @@ def train_multivariate_model():
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Initialize Multivariate Multi-output Linear Regression
-    # Sklearn's LinearRegression handles multiple targets (y) automatically 
-    # by fitting one regressor per target in a single step.
     model = LinearRegression()
     model.fit(X_train, y_train)
 
@@ -54,12 +57,17 @@ def train_multivariate_model():
         print(f"  MSE: {mse:.4f}")
         print(f"  R2 Score: {r2:.4f}")
 
-    # saving model
-    os.makedirs("models", exist_ok=True)
-    model_filename = "models/sprinter_multivariate_model.pkl"
-    joblib.dump(model, model_filename)
+    # saving model and scaler
+    os.makedirs("model_files", exist_ok=True)
+    model_filename = "model_files/sprinter_multivariate_model.pkl"
+    # save both model and scaler in a dictionary for consistent loading
+    save_dict = {
+        'model': model,
+        'scaler': scaler
+    }
+    joblib.dump(save_dict, model_filename)
 
-    print(f"\nModel successfully trained and saved.")
+    print(f"\nModel and Scaler successfully trained and saved.")
 
 if __name__ == "__main__":
     train_multivariate_model()
