@@ -9,14 +9,14 @@ class SprintPredictor:
         # loading the model and scaler
         data = joblib.load(model_path)
 
-        # extracting both from the dictionary
+        # extracting model and scaler from the dictionary
         self.model = data['model']
         self.scaler = data['scaler']
 
-        # output column names matching train_model.py and datasetathlete.csv
+        # output column names
         self.column_names = [
-            'Mean_Deviation_Stride',
-            'Vertical_upright_angle',
+            'mean_deviation_stride',
+            'vertical_upright_angle',
             'Left_elbow',
             'right_elbow',
             'left_knee',
@@ -27,19 +27,19 @@ class SprintPredictor:
 
         gender_numeric = 1 if gender == 'Male' else 0
 
-        # creating dataframe of input with SAME order as training
+        # creating dataframe of input
         input_data = pd.DataFrame({
             'Weight': [weight_kg],
             'Height': [height_cm],
             'Gender': [gender_numeric]
         })
 
-        # normalizing weight and height using the same order as fit
+        # normalizing weight and height
         input_data[['Weight', 'Height']] = self.scaler.transform(
             input_data[['Weight', 'Height']]
         )
 
-        # making predictions (input_data now has correct order and scaling)
+        # making predictions
         predicted_values = self.model.predict(input_data)
 
         # converting result into dictionary

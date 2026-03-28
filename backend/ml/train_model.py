@@ -29,9 +29,9 @@ def train_multivariate_model():
     
     # output
     targets = [
-        'Mean_Deviation_Stride', 
-        'Vertical_upright_angle', 
-        'Left_elbow', 
+        'mean_deviation_stride',
+        'vertical_upright_angle',
+        'left_elbow',
         'right_elbow', 
         'left_knee', 
         'right_knee'
