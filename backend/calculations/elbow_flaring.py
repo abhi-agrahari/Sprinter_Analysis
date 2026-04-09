@@ -1,38 +1,34 @@
 import numpy as np
-
-from calculations.angle_utils import calculate_angle_between_vectors
-
+from .angle_utils import calculate_angle_between_vectors
 
 def calculate_elbow_flaring(keypoints_with_scores):
     """
     Calculates left and right elbow flaring angles.
-
-    The flaring angle is measured between the upper arm vector
-    (shoulder → elbow) and the vertical downward direction [0, -1].
-
     """
-    left_elbow_index = 7       # Left elbow
-    left_shoulder_index = 5    # Left shoulder
-    right_elbow_index = 8      # Right elbow
-    right_shoulder_index = 6   # Right shoulder
+    keypoints = keypoints_with_scores[0, 0]
+    left_elbow_idx = 7
+    left_shoulder_idx = 5
+    right_elbow_idx = 8
+    right_shoulder_idx = 6
+    
+    conf_threshold = 0.2
+    
+    # Left side
+    if keypoints[left_elbow_idx, 2] > conf_threshold and keypoints[left_shoulder_idx, 2] > conf_threshold:
+        l_elb = keypoints[left_elbow_idx, :2]
+        l_sh = keypoints[left_shoulder_idx, :2]
+        l_vec = l_sh - l_elb
+        l_flare = calculate_angle_between_vectors(l_vec, np.array([0, -1]))
+    else:
+        l_flare = 0.0
 
-    left_elbow = keypoints_with_scores[0, 0, left_elbow_index, :2]
-    left_shoulder = keypoints_with_scores[0, 0, left_shoulder_index, :2]
-    right_elbow = keypoints_with_scores[0, 0, right_elbow_index, :2]
-    right_shoulder = keypoints_with_scores[0, 0, right_shoulder_index, :2]
+    # Right side
+    if keypoints[right_elbow_idx, 2] > conf_threshold and keypoints[right_shoulder_idx, 2] > conf_threshold:
+        r_elb = keypoints[right_elbow_idx, :2]
+        r_sh = keypoints[right_shoulder_idx, :2]
+        r_vec = r_sh - r_elb
+        r_flare = calculate_angle_between_vectors(r_vec, np.array([0, -1]))
+    else:
+        r_flare = 0.0
 
-    # Vector from elbow TO shoulder
-    left_upper_arm_vector = left_shoulder - left_elbow
-    right_upper_arm_vector = right_shoulder - right_elbow
-
-    # Defining the vertical axis
-    vertical_axis = np.array([0, -1])
-
-    left_elbow_flare_angle = calculate_angle_between_vectors(
-        left_upper_arm_vector, vertical_axis
-    )
-    right_elbow_flare_angle = calculate_angle_between_vectors(
-        right_upper_arm_vector, vertical_axis
-    )
-
-    return left_elbow_flare_angle, right_elbow_flare_angle
+    return l_flare, r_flare
