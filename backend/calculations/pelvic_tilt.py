@@ -1,25 +1,25 @@
 import numpy as np
+from .angle_utils import calculate_angle_between_vectors
 
 def calculate_pelvic_tilt(keypoints_with_scores):
     """
-    The pelvic tilt is the angle formed by the difference in
-    hip heights relative to the spine position.
+    Measures the tilt of the pelvis (hip line) relative to the horizontal.
     """
-    left_hip_index = 11   # Left hip joint
-    right_hip_index = 12  # Right hip joint
-    spine_index = 8       # Right elbow (used as spine approximation)
+    keypoints = keypoints_with_scores[0, 0]
+    left_hip_idx = 11
+    right_hip_idx = 12
+    
+    conf_threshold = 0.2
+    if keypoints[left_hip_idx, 2] < conf_threshold or keypoints[right_hip_idx, 2] < conf_threshold:
+        return 0.0
 
-    left_hip_y = keypoints_with_scores[0, 0, left_hip_index, 0]
-    right_hip_y = keypoints_with_scores[0, 0, right_hip_index, 0]
-    spine_y = keypoints_with_scores[0, 0, spine_index, 0]
+    l_hip = keypoints[left_hip_idx, :2]
+    r_hip = keypoints[right_hip_idx, :2]
 
-    if None not in [left_hip_y, right_hip_y, spine_y]:
+    # Vector representing the hips line
+    hip_vec = r_hip - l_hip # [dy, dx]
+    # Horizontal vector [0, 1] (y doesn't change, x increases)
+    horiz_vec = np.array([0.0, 1.0])
 
-        pelvic_tilt_angle = np.arctan2(
-            right_hip_y - left_hip_y,
-            spine_y - 0.5
-        ) * (180.0 / np.pi)
-
-        return pelvic_tilt_angle
-    else:
-        return None
+    angle = calculate_angle_between_vectors(hip_vec, horiz_vec)
+    return angle
