@@ -1,18 +1,16 @@
-# Web Framework
-Flask==3.0.0
-Flask-CORS==4.0.0
-
-# Machine Learning / Deep Learning
-tensorflow==2.20.0
+flask
+flask-cors
+flask-sqlalchemy
+flask-jwt-extended
+mysql-connector-python
+imagekitio
+python-dotenv
+bcrypt
+flask-bcrypt
+opencv-python
+numpy
+pandas
+scikit-learn
+joblib
+tensorflow
 tensorflow-hub
-scikit-learn==1.6.1
-
-# Data Processing
-numpy==2.1.3
-pandas==2.2.3
-
-# Computer Vision
-opencv-python==4.10.0.84
-
-# Visualization
-matplotlib==3.9.4

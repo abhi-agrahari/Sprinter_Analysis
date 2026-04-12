@@ -15,9 +15,18 @@ def save_uploaded_video(file_data, filename, upload_folder='uploaded_videos'):
     return video_path
 
 
-def extract_frames(video_path):
+def get_skip_interval(frame_count):
+    if frame_count > 1600:
+        return 3
+    elif frame_count > 800:
+        return 2
+    return 1
+
+
+def extract_frames(video_path, skip_interval=1):
 
     cap = cv2.VideoCapture(video_path)
+    frame_idx = 0
 
     while cap.isOpened():
 
@@ -26,7 +35,10 @@ def extract_frames(video_path):
         if not ret:
             break
 
-        yield frame
+        if frame_idx % skip_interval == 0:
+            yield frame
+        
+        frame_idx += 1
 
     cap.release()
 
