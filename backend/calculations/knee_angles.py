@@ -1,4 +1,6 @@
 import math
+import numpy as np
+from .angle_utils import calculate_angle_three_points
 
 
 def calculate_knee_angles(keypoints_with_scores):
@@ -13,25 +15,16 @@ def calculate_knee_angles(keypoints_with_scores):
 
     keypoints = keypoints_with_scores[0, 0]
 
-    left_hip = keypoints[left_hip_idx, :2]       # [y, x] of left hip
-    left_knee = keypoints[left_knee_idx, :2]     # [y, x] of left knee
-    left_ankle = keypoints[left_ankle_idx, :2]   # [y, x] of left ankle
-    right_hip = keypoints[right_hip_idx, :2]     # [y, x] of right hip
-    right_knee = keypoints[right_knee_idx, :2]   # [y, x] of right knee
-    right_ankle = keypoints[right_ankle_idx, :2] # [y, x] of right ankle
+    left_hip = keypoints[left_hip_idx, :2]       # [y, x]
+    left_knee = keypoints[left_knee_idx, :2]     # [y, x]
+    left_ankle = keypoints[left_ankle_idx, :2]   # [y, x]
+    right_hip = keypoints[right_hip_idx, :2]     # [y, x]
+    right_knee = keypoints[right_knee_idx, :2]   # [y, x]
+    right_ankle = keypoints[right_ankle_idx, :2] # [y, x]
 
-
-    # math.atan2(dy, dx) returns angle in radians
-    # math.degrees() converts radians - degrees
-
-    left_knee_angle = math.degrees(
-        math.atan2(left_knee[1] - left_hip[1], left_knee[0] - left_hip[0])   # angle of thigh
-        - math.atan2(left_ankle[1] - left_knee[1], left_ankle[0] - left_knee[0])  # angle of shin
-    )
-
-    right_knee_angle = math.degrees(
-        math.atan2(right_knee[1] - right_hip[1], right_knee[0] - right_hip[0])
-        - math.atan2(right_ankle[1] - right_knee[1], right_ankle[0] - right_knee[0])
-    )
+    # Calculate interior angles using three points
+    # This will return values around 180 for a straight leg and smaller for a bent leg.
+    left_knee_angle = calculate_angle_three_points(left_hip, left_knee, left_ankle)
+    right_knee_angle = calculate_angle_three_points(right_hip, right_knee, right_ankle)
 
     return left_knee_angle, right_knee_angle

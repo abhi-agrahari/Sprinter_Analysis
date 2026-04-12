@@ -7,6 +7,7 @@ from models import db, bcrypt
 
 # Import Blueprints
 from routes.auth import auth_bp
+from routes.analysis import analysis_bp
 from routes.password import password_bp
 
 load_dotenv()
@@ -26,6 +27,7 @@ jwt = JWTManager(app)
 
 # Register Blueprints
 app.register_blueprint(auth_bp)
+app.register_blueprint(analysis_bp)
 app.register_blueprint(password_bp)
 
 with app.app_context():

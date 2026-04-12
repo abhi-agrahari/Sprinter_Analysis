@@ -2,6 +2,14 @@ import os
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from sqlalchemy.dialects.mysql import LONGTEXT
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+
+def get_ist_now():
+    ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+    return datetime.datetime.now(ist)
+
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -17,6 +25,7 @@ class User(db.Model):
     gender = db.Column(db.String(20), nullable=True) # Male/Female/Other
     reset_token = db.Column(db.String(100), nullable=True)
     reset_token_expiry = db.Column(db.DateTime, nullable=True)
+    created_at = db.Column(db.DateTime, default=get_ist_now)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     analyses = db.relationship('AnalysisHistory', backref='user', lazy=True)
@@ -26,6 +35,9 @@ class AnalysisHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     video_url = db.Column(db.String(500), nullable=False) # ImageKit stream URL
+    advice = db.Column(db.Text().with_variant(LONGTEXT, "mysql"), nullable=False) 
+    graph_data = db.Column(db.Text().with_variant(LONGTEXT, "mysql"), nullable=False) 
+    created_at = db.Column(db.DateTime, default=get_ist_now)
     advice = db.Column(db.Text, nullable=False) # JSON-stringified list of advices
     graph_data = db.Column(db.Text, nullable=False) # JSON-stringified graph points
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
