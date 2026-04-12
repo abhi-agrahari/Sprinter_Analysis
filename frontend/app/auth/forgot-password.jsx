@@ -9,9 +9,12 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { api } from '../../api';
-import styles from '../../styles/auth/forgot-password.styles';
+import getStyles from '../../styles/auth/forgot-password.styles';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function ForgotPasswordScreen() {
+    const { colors } = useTheme();
+    const styles = getStyles(colors);
     const [email, setEmail] = useState('');
     const router = useRouter();
 
@@ -43,7 +46,7 @@ export default function ForgotPasswordScreen() {
             <TextInput
                 style={styles.input}
                 placeholder="Email"
-                placeholderTextColor="#666"
+                placeholderTextColor={colors.textSecondary}
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"

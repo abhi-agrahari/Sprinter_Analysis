@@ -10,10 +10,13 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { api } from '../../api';
-import styles from '../../styles/auth/signup.styles';
+import getStyles from '../../styles/auth/signup.styles';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function SignupScreen() {
+    const { colors } = useTheme();
+    const styles = getStyles(colors);
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -58,22 +61,22 @@ export default function SignupScreen() {
             <Text style={styles.subtitle}>Track your sprint performance with AI</Text>
 
             <View style={styles.inputContainer}>
-                <Ionicons name="person" size={18} color="#666" style={styles.inputIcon} />
+                <Ionicons name="person" size={18} color={colors.textSecondary} style={styles.inputIcon} />
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
-                    placeholderTextColor="#666"
+                    placeholderTextColor={colors.textSecondary}
                     value={form.name}
                     onChangeText={(text) => updateField('name', text)}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Ionicons name="mail" size={18} color="#666" style={styles.inputIcon} />
+                <Ionicons name="mail" size={18} color={colors.textSecondary} style={styles.inputIcon} />
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
-                    placeholderTextColor="#666"
+                    placeholderTextColor={colors.textSecondary}
                     value={form.email}
                     onChangeText={(text) => updateField('email', text)}
                     autoCapitalize="none"
@@ -82,11 +85,11 @@ export default function SignupScreen() {
             </View>
 
             <View style={styles.inputContainer}>
-                <Ionicons name="lock-closed" size={18} color="#666" style={styles.inputIcon} />
+                <Ionicons name="lock-closed" size={18} color={colors.textSecondary} style={styles.inputIcon} />
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
-                    placeholderTextColor="#666"
+                    placeholderTextColor={colors.textSecondary}
                     value={form.password}
                     onChangeText={(text) => updateField('password', text)}
                     secureTextEntry
@@ -95,22 +98,22 @@ export default function SignupScreen() {
 
             <View style={styles.row}>
                 <View style={[styles.inputContainer, styles.halfInput]}>
-                    <Ionicons name="pencil" size={18} color="#666" style={styles.inputIcon} />
+                    <Ionicons name="pencil" size={18} color={colors.textSecondary} style={styles.inputIcon} />
                     <TextInput
                         style={styles.input}
                         placeholder="Height"
-                        placeholderTextColor="#666"
+                        placeholderTextColor={colors.textSecondary}
                         value={form.height}
                         onChangeText={(text) => updateField('height', text)}
                         keyboardType="numeric"
                     />
                 </View>
                 <View style={[styles.inputContainer, styles.halfInput]}>
-                    <Ionicons name="fitness" size={18} color="#666" style={styles.inputIcon} />
+                    <Ionicons name="fitness" size={18} color={colors.textSecondary} style={styles.inputIcon} />
                     <TextInput
                         style={styles.input}
                         placeholder="Weight"
-                        placeholderTextColor="#666"
+                        placeholderTextColor={colors.textSecondary}
                         value={form.weight}
                         onChangeText={(text) => updateField('weight', text)}
                         keyboardType="numeric"

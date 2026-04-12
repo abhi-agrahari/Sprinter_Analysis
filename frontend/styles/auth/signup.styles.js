@@ -1,29 +1,29 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
     scroll: {
-        backgroundColor: '#000',
+        backgroundColor: colors.background,
     },
     container: {
         flexGrow: 1,
         padding: 30,
-        backgroundColor: '#000',
+        backgroundColor: colors.background,
         paddingTop: 80,
         paddingBottom: 60,
     },
     title: {
         fontSize: 32,
         fontWeight: 'bold',
-        color: '#fff',
+        color: colors.text,
         marginBottom: 10,
     },
     subtitle: {
         fontSize: 16,
-        color: '#aaa',
+        color: colors.textSecondary,
         marginBottom: 40,
     },
     label: {
-        color: '#007AFF',
+        color: colors.primary,
         fontSize: 14,
         fontWeight: 'bold',
         marginBottom: 10,
@@ -32,17 +32,19 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#1c1c1e',
+        backgroundColor: colors.card,
         borderRadius: 15,
         marginBottom: 20,
         paddingHorizontal: 15,
+        borderWidth: 1,
+        borderColor: colors.border,
     },
     inputIcon: {
         marginRight: 10,
     },
     input: {
         flex: 1,
-        color: '#fff',
+        color: colors.text,
         paddingVertical: 15,
         fontSize: 16,
     },
@@ -61,41 +63,44 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 12,
         borderRadius: 10,
-        backgroundColor: '#1c1c1e',
+        backgroundColor: colors.card,
         alignItems: 'center',
         marginHorizontal: 5,
+        borderWidth: 1,
+        borderColor: colors.border,
     },
     genderButtonActive: {
-        backgroundColor: '#007AFF',
+        backgroundColor: colors.primary,
+        borderColor: colors.primary,
     },
     genderText: {
-        color: '#888',
+        color: colors.textSecondary,
         fontSize: 16,
     },
     genderTextActive: {
-        color: '#fff',
+        color: colors.buttonText,
         fontWeight: 'bold',
     },
     button: {
-        backgroundColor: '#007AFF',
+        backgroundColor: colors.primary,
         padding: 18,
         borderRadius: 10,
         alignItems: 'center',
         marginBottom: 25,
     },
     buttonText: {
-        color: '#fff',
+        color: colors.buttonText,
         fontSize: 18,
         fontWeight: 'bold',
     },
     loginText: {
-        color: '#888',
+        color: colors.textSecondary,
         textAlign: 'center',
     },
     loginLink: {
-        color: '#007AFF',
+        color: colors.primary,
         fontWeight: 'bold',
     },
 });
 
-export default styles;
+export default getStyles;
