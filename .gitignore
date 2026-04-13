@@ -1,0 +1,26 @@
+# General
+.env
+.env.local
+.env.*
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+backend/__pycache__/
+backend/*.py[cod]
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+backend/uploaded_videos/*
+!backend/uploaded_videos/.gitkeep
+frontend/.expo/
+frontend/dist/
