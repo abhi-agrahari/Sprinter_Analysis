@@ -17,7 +17,11 @@ analysis_bp = Blueprint('analysis', __name__)
 # Initialize MoveNet once
 movenet = load_movenet()
 
-@analysis_bp.route('/analyze', methods=['POST'])
+@analysis_bp.route('/api/test', methods=['GET'])
+def test_route():
+    return jsonify({'status': 'Backend is working!', 'message': 'Cloud deployment successful'}), 200
+
+@analysis_bp.route('/api/analyze', methods=['POST'])
 @jwt_required()
 def analyze_video():
     user_id = get_jwt_identity()
@@ -89,3 +93,19 @@ def analyze_video():
     finally:
         if os.path.exists(upload_path): os.remove(upload_path)
         if os.path.exists(processed_path): os.remove(processed_path)
+
+@analysis_bp.route('/api/history', methods=['GET'])
+@jwt_required()
+def get_history():
+    user_id = get_jwt_identity()
+    history = AnalysisHistory.query.filter_by(user_id=user_id).order_by(AnalysisHistory.created_at.desc()).all()
+    
+    result = []
+    for item in history:
+        result.append({
+            'id': item.id,
+            'video_url': item.video_url,
+            'feedback': item.feedback,
+            'created_at': item.created_at.isoformat()
+        })
+    return jsonify(result), 200
