@@ -25,5 +25,10 @@ def calculate_angle_three_points(point1, point2, point3):
     vector1 = point1 - point2
 
     vector2 = point3 - point2
-
     return calculate_angle_between_vectors(vector1, vector2)
+
+def get_upright_avg(angles):
+    """ Calculate average of a list of angles. """
+    if not angles:
+        return 0
+    return sum(angles) / len(angles)

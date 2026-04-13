@@ -8,7 +8,6 @@ export default function RootLayout() {
         <ThemeProvider>
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="(tabs)" />
-                <Stack.Screen name="auth" />
                 <Stack.Screen name="feedback" />
             </Stack>
             <StatusBar style="auto" />

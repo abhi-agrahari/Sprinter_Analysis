@@ -21,4 +21,6 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["python", "app.py"]
+# Use gunicorn as the production server
+# We set a long timeout (120s) because video processing takes time
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "app:app"]

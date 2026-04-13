@@ -1,31 +1,37 @@
 {
-    "expo": {
-        "name": "Sprinter Analysis",
-        "slug": "sprinter-analysis",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/images/icon.png",
-        "scheme": "sprinter",
-        "userInterfaceStyle": "dark",
-        "splash": {
-            "image": "./assets/images/splash-icon.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#000000"
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/icon.png",
-                "backgroundColor": "#000000"
-            }
-        },
-        "plugins": [
-            "expo-router"
-        ]
+  "expo": {
+    "name": "Sprinter Analysis",
+    "slug": "sprinter-analysis",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "sprinter",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.abhi11223344.sprinteranalysis"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "10a10199-dda1-4226-aadd-a4a74f230163"
+      }
     }
+  }
 }
