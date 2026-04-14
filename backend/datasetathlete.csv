@@ -1,4 +1,4 @@
-"AtheleteName","Weight","Height","Gender","mean_deviation_Stride","vertical_upright_angle","left_elbow","right_elbow","left_knee","right_knee"
+"AtheleteName","Weight","Height","Gender","pelvic_tilt","vertical_upright_angle","left_elbow","right_elbow","left_knee","right_knee"
 "Usian Bolt ","95","194","1","0.0348","0.89","86.87","90.37","162.3","160.7"
 "Tyson Gay","78","180","1","0.0291","1.01","84.12","92.12","155.8","156.2"
 "Yohan Blake","78","185","1","0.0133","0.7","94.4","87.7","158.4","157.9"

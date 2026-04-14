@@ -4,7 +4,7 @@ import pandas as pd
 
 class SprintPredictor:
 
-    def __init__(self, model_path='model_files/sprinter_multivariate_model.pkl'):
+    def __init__(self, model_path='model_files/sprinter_random_forest_model.pkl'):
 
         # loading the model and scaler
         data = joblib.load(model_path)
@@ -15,9 +15,9 @@ class SprintPredictor:
 
         # output column names
         self.column_names = [
-            'mean_deviation_stride',
+            'pelvic_tilt',
             'vertical_upright_angle',
-            'Left_elbow',
+            'left_elbow',
             'right_elbow',
             'left_knee',
             'right_knee'

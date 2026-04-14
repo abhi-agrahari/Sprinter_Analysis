@@ -42,35 +42,72 @@ export default function HistoryScreen() {
     }
 
     // Format advice for display
-    function formatAdvice(advice) {
-        if (!advice) return "No advice available";
+    function formatAdvice(rawAdvice) {
+        if (!rawAdvice) return "No advice available";
 
-        // Handle different advice formats
+        let advice = rawAdvice;
+
+        // If it's a string, try to parse it
+        if (typeof advice === 'string') {
+            try {
+                // Python dicts use single quotes, replace with double for JSON
+                advice = JSON.parse(advice.replace(/'/g, '"'));
+            } catch (e) {
+                return String(advice).substring(0, 80) + '...';
+            }
+        }
+
+        // Handle array format
         if (Array.isArray(advice)) {
             return advice.slice(0, 2).join(' • ');
         }
 
+        // Handle object format {good: [], improve: []}
         if (typeof advice === 'object') {
             const parts = [];
             if (advice.good && advice.good.length > 0) {
-                parts.push(...advice.good.slice(0, 1));
+                parts.push('✓ ' + advice.good[0]);
             }
             if (advice.improve && advice.improve.length > 0) {
-                parts.push(...advice.improve.slice(0, 1));
+                parts.push('↑ ' + advice.improve[0]);
             }
-            return parts.join(' • ') || "Analysis complete";
+            return parts.join('\n') || "Analysis complete";
         }
 
         return String(advice);
     }
 
+    // Format date for display
+    function formatDate(dateStr) {
+        if (!dateStr) return null;
+        try {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', {
+                day: 'numeric', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        } catch (e) {
+            return dateStr;
+        }
+    }
+
     // Open a history item
     function openItem(item) {
+        // Parse advice string back to object for the feedback screen
+        let adviceObj = item.advice;
+        if (typeof adviceObj === 'string') {
+            try {
+                adviceObj = JSON.parse(adviceObj.replace(/'/g, '"'));
+            } catch (e) {
+                adviceObj = { good: [], improve: [String(item.advice)] };
+            }
+        }
+
         router.push({
             pathname: '/feedback',
             params: {
-                stream_url: item.url || item.stream_url,
-                advice: JSON.stringify(item.advice),
+                stream_url: item.video_url,
+                advice: JSON.stringify(adviceObj),
             },
         });
     }
@@ -86,7 +123,7 @@ export default function HistoryScreen() {
                     <View style={styles.dateContainer}>
                         <Ionicons name="sparkles" size={16} color={colors.primary} />
                         <Text style={styles.dateText}>
-                            {item.date || `Analysis #${index + 1}`}
+                            {formatDate(item.created_at) || `Analysis #${index + 1}`}
                         </Text>
                     </View>
                     <Ionicons name="chevron-forward" size={14} color={colors.textSecondary} />

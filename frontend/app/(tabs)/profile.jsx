@@ -171,10 +171,10 @@ export default function ProfileScreen() {
                 <TouchableOpacity style={styles.themeSection} onPress={toggleTheme}>
                     <Text style={styles.themeLabel}>Appearance</Text>
                     <View style={styles.themeToggle}>
-                        <Ionicons 
-                            name={isDarkMode ? 'moon' : 'sunny'} 
-                            size={20} 
-                            color={colors.primary} 
+                        <Ionicons
+                            name={isDarkMode ? 'moon' : 'sunny'}
+                            size={20}
+                            color={colors.primary}
                         />
                         <Text style={styles.themeToggleText}>
                             {isDarkMode ? 'Dark Mode' : 'Light Mode'}

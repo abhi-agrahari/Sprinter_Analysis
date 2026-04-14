@@ -29,7 +29,7 @@ def train_random_forest_model():
     
     # output
     targets = [
-        'mean_deviation_Stride',
+        'pelvic_tilt',
         'vertical_upright_angle',
         'left_elbow',
         'right_elbow', 
@@ -49,7 +49,7 @@ def train_random_forest_model():
     y_pred = model.predict(X_test)
 
     # model evaluation
-    print("\nModel Evaluation ---")
+    print(f"\nModel Evaluation ---")
     for i, target in enumerate(targets):
         actual = y_test.iloc[:, i]
         predicted = y_pred[:, i]
@@ -60,9 +60,9 @@ def train_random_forest_model():
         r2 = r2_score(actual, predicted)
         
         # Calculate "Accuracy" with sensible tolerances
-        if 'stride' in target.lower():
-            # Stride deviation is small, tolerance of 0.05 is much more realistic
-            tolerance = 0.05 
+        if 'pelvic' in target.lower():
+            # Pelvic tilt tolerance of 2.0 degrees
+            tolerance = 2.0
         elif 'upright' in target.lower():
             # Upright angle tolerance of 2.0 degrees
             tolerance = 2.0

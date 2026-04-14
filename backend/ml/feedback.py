@@ -35,8 +35,9 @@ def get_coaching_feedback(avgs, ideal_values):
         advices["good"].append("Compact Arms: Good job keeping your arms close. This keeps your body stable and fast.")
 
     # pelvic stability advice
-    avg_pelvic = abs(avgs.get('pelvic_tilt', 0))
-    if avg_pelvic > 30:
+    avg_pelvic = avgs.get('pelvic_tilt', 0)
+    ideal_pelvic = ideal_values.get('pelvic_tilt', 0)
+    if abs(avg_pelvic - ideal_pelvic) > 10:
         advices["improve"].append("Stable Hips: Try to keep your hips steady and level. A strong core stops your body from wiggling.")
     else:
         advices["good"].append("Solid Core: Your hips are very stable. All your energy is pushing you straight forward.")
