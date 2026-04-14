@@ -1,0 +1,16 @@
+flask
+flask-cors
+flask-sqlalchemy
+flask-jwt-extended
+mysql-connector-python
+imagekitio
+python-dotenv
+bcrypt
+flask-bcrypt
+opencv-python
+numpy
+pandas
+scikit-learn
+joblib
+tensorflow
+tensorflow-hub
