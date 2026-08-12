@@ -15,6 +15,10 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/healthz')
+def healthz():
+    return {"status": "ok"}, 200
+
 # Configuration
 MYSQL_USER = os.getenv('MYSQL_USER', 'root')
 MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '')
