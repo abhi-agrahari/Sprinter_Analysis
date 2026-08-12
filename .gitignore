@@ -24,3 +24,8 @@ backend/uploaded_videos/*
 !backend/uploaded_videos/.gitkeep
 frontend/.expo/
 frontend/dist/
+
+backend/venv312/
+backend/venv/
+venv/
+.venv/
