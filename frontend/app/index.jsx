@@ -1,4 +1,6 @@
+import { Platform } from 'react-native';
 import React, { useEffect } from 'react';
+
 import { Redirect, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
